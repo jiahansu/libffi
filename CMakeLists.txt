@@ -137,7 +137,7 @@ elseif("${TARGET}" STREQUAL "ARM_WIN32" OR "${TARGET}" STREQUAL "ARM")
 else()
     set(FFI_SOURCES
         ${FFI_SOURCES}
-        ${FFI_ROOT}/src/java_raw_api.c
+        #${FFI_ROOT}/src/java_raw_api.c
         ${FFI_ROOT}/src/raw_api.c)
     if("${TARGET}" STREQUAL "X86_WIN32" OR "${TARGET}" STREQUAL "X86_DARWIN" OR "${TARGET}" STREQUAL "X86")
         set(FFI_SOURCES
@@ -265,6 +265,8 @@ if(WIN32 OR MINGW)
             "-lffi" "-llibffi")
     endif()
 endif()
+
+add_compile_options(-Wno-sign-compare -Wno-null-pointer-arithmetic -Wno-unused-but-set-variable)
 
 add_library(libffi ${FFI_SOURCES})
 
