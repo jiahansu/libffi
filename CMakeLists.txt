@@ -266,7 +266,13 @@ if(WIN32 OR MINGW)
     endif()
 endif()
 
-add_compile_options(-Wno-sign-compare -Wno-null-pointer-arithmetic -Wno-unused-but-set-variable)
+add_compile_options(-Wno-sign-compare -Wno-unused-but-set-variable -Wno-implicit-fallthrough) 
+
+if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+add_compile_options(-Wno-null-pointer-arithmetic)
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+add_compile_options(-Wno-maybe-uninitialized)
+endif()
 
 add_library(libffi ${FFI_SOURCES})
 
