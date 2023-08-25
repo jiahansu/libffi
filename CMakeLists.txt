@@ -266,10 +266,20 @@ if(WIN32 OR MINGW)
     endif()
 endif()
 
-add_compile_options(-Wno-sign-compare -Wno-unused-but-set-variable -Wno-implicit-fallthrough) 
+add_compile_options(-Wno-sign-compare -Wno-implicit-fallthrough) 
 
 if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+
+EXECUTE_PROCESS( COMMAND ${CMAKE_CXX_COMPILER} --version OUTPUT_VARIABLE clang_full_version_string )
+string (REGEX REPLACE ".*clang version ([0-9]+\\.[0-9]+).*" "\\1" CLANG_VERSION_STRING ${clang_full_version_string})
+message("Clag version : " ${CLANG_VERSION_STRING})
+
+if (CLANG_VERSION_STRING VERSION_GREATER 15) 
+add_compile_options(-Wno-unused-but-set-variable) 
+endif()
+
 add_compile_options(-Wno-null-pointer-arithmetic)
+
 elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 add_compile_options(-Wno-maybe-uninitialized)
 endif()
