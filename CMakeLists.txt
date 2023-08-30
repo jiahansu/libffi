@@ -281,7 +281,7 @@ endif()
 add_compile_options(-Wno-null-pointer-arithmetic)
 
 elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-add_compile_options(-Wno-maybe-uninitialized)
+add_compile_options(-Wno-maybe-uninitialized -Wno-empty-body)
 endif()
 
 add_library(libffi ${FFI_SOURCES})
